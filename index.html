@@ -38,6 +38,7 @@ line-height: 1;  /* per centrare verticalmente il numero */
 display: flex;
 justify-content: center;
 align-items: center;
+box-sizing: border-box; /* aiuta con padding/bordi */
 }
   
 .scheda{
@@ -265,9 +266,13 @@ function validate(){
 
 let t = totals()
 
-// aggiorna i totali
+// aggiorna i totali centrando correttamente i numeri nei div
 for(let i=0;i<players;i++){
-document.getElementById("t"+(i+1)).innerText = t[i]
+  const tDiv = document.getElementById("t"+(i+1))
+  tDiv.innerText = t[i]
+  tDiv.style.display = 'none'      // forza il ridisegno
+  tDiv.offsetHeight                 // reflow
+  tDiv.style.display = 'flex'
 }
 
 // considera solo i giocatori con nome e punteggio >0
@@ -275,10 +280,9 @@ let validPlayers = []
 
 for(let i=0;i<players;i++){
 
-let name = document.getElementById("p"+(i+1)).value
-
+let name = document.getElementById("p"+(i+1)).innerText.trim()
 if(name && t[i] > 0){
-validPlayers.push({index:i,total:t[i]})
+    validPlayers.push({index:i,total:t[i]})
 }
 
 }
@@ -356,6 +360,7 @@ load()
 </body>
 
 </html>
+
 
 
 
