@@ -124,18 +124,18 @@ font-weight:bold;
 
 <div class="overlay" id="overlay">
 
-<input class="player vertical-text" id="p1" style="left:55.22%;top:6.68%" oninput="save()">
-<input class="player vertical-text" id="p2" style="left:61.45%;top:6.68%" oninput="save()">
-<input class="player vertical-text" id="p3" style="left:67.63%;top:6.68%" oninput="save()">
-<input class="player vertical-text" id="p4" style="left:73.77%;top:6.68%" oninput="save()">
-<input class="player vertical-text" id="p5" style="left:79.93%;top:6.68%" oninput="save()">
-<input class="player vertical-text" id="p6" style="left:86.07%;top:6.68%" oninput="save()">
-<input class="score-square" id="t1" style="left:54.70%;top:91.45%" readonly>
-<input class="score-square" id="t2" style="left:60.90%;top:91.45%" readonly>
-<input class="score-square" id="t3" style="left:67.10%;top:91.45%" readonly>
-<input class="score-square" id="t4" style="left:73.3%;top:91.45%" readonly>
-<input class="score-square" id="t5" style="left:79.45%;top:91.45%" readonly>
-<input class="score-square" id="t6" style="left:85.55%;top:91.45%" readonly>
+<div class="player vertical-text" id="p1" contenteditable="true" style="left:55.22%;top:6.68%"> </div>
+<div class="player vertical-text" id="p2" contenteditable="true" style="left:61.45%;top:6.68%"> </div>
+<div class="player vertical-text" id="p3" contenteditable="true" style="left:67.63%;top:6.68%"> </div>
+<div class="player vertical-text" id="p4" contenteditable="true" style="left:73.77%;top:6.68%"> </div>
+<div class="player vertical-text" id="p5" contenteditable="true" style="left:79.93%;top:6.68%"> </div>
+<div class="player vertical-text" id="p6" contenteditable="true" style="left:86.07%;top:6.68%"> </div>
+<div class="score-square" id="t1" style="left:54.70%;top:91.45%">0</div>
+<div class="score-square" id="t2" style="left:60.90%;top:91.45%">0</div>
+<div class="score-square" id="t3" style="left:67.10%;top:91.45%">0</div>
+<div class="score-square" id="t4" style="left:73.3%;top:91.45%">0</div>
+<div class="score-square" id="t5" style="left:79.45%;top:91.45%">0</div>
+<div class="score-square" id="t6" style="left:85.55%;top:91.45%">0</div>
 
 </div>
 </div>
@@ -202,7 +202,7 @@ data["r"+el.dataset.row+"p"+el.dataset.player]=el.value
 })
 
 for(let i=1;i<=6;i++)
-data["p"+i]=document.getElementById("p"+i).value
+data["p"+i]=document.getElementById("p"+i).innerText
 
 for(let i=1;i<=6;i++)
 data["t"+i]=document.getElementById("t"+i).value
@@ -231,7 +231,7 @@ el.value=data[key]
 for(let i=1;i<=6;i++){
 
 if(data["p"+i])
-document.getElementById("p"+i).value=data["p"+i]
+document.getElementById("p"+i).innerText=data["p"+i]
 
 }
 for(let i=1;i<=6;i++){
@@ -267,7 +267,7 @@ let t = totals()
 
 // aggiorna i totali
 for(let i=0;i<players;i++){
-document.getElementById("t"+(i+1)).value = t[i]
+document.getElementById("t"+(i+1)).innerText = t[i]
 }
 
 // considera solo i giocatori con nome e punteggio >0
@@ -356,6 +356,7 @@ load()
 </body>
 
 </html>
+
 
 
 
