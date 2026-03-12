@@ -20,6 +20,14 @@ flex-direction:column;
 align-items:center;
 }
 
+.vertical-text {
+writing-mode: vertical-rl;
+transform: rotate(180deg);
+white-space: nowrap;
+font-size: 12px;
+text-align: center;
+}
+  
 .scheda{
 
 width:95%;
@@ -104,12 +112,12 @@ font-weight:bold;
 
 <div class="overlay" id="overlay">
 
-<input class="player" id="p1" style="left:53%;top:7%" oninput="save()">
-<input class="player" id="p2" style="left:61%;top:7%" oninput="save()">
-<input class="player" id="p3" style="left:69%;top:7%" oninput="save()">
-<input class="player" id="p4" style="left:77%;top:7%" oninput="save()">
-<input class="player" id="p5" style="left:85%;top:7%" oninput="save()">
-<input class="player" id="p6" style="left:93%;top:7%" oninput="save()">
+<input class="player vertical-text" id="p1" style="left:53%;top:7%" oninput="save()">
+<input class="player vertical-text" id="p2" style="left:61%;top:7%" oninput="save()">
+<input class="player vertical-text" id="p3" style="left:69%;top:7%" oninput="save()">
+<input class="player vertical-text" id="p4" style="left:77%;top:7%" oninput="save()">
+<input class="player vertical-text" id="p5" style="left:85%;top:7%" oninput="save()">
+<input class="player vertical-text" id="p6" style="left:93%;top:7%" oninput="save()">
 <input class="player" id="t1" style="left:53%;top:92%" readonly>
 <input class="player" id="t2" style="left:61%;top:92%" readonly>
 <input class="player" id="t3" style="left:69%;top:92%" readonly>
@@ -336,5 +344,6 @@ load()
 </body>
 
 </html>
+
 
 
