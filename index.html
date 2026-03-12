@@ -296,10 +296,21 @@ backgroundColor:"#ffffff"
 
 const data = canvas.toDataURL("image/png")
 
-const pdf = new jsPDF("landscape","mm","a4")
+const pdf = new jsPDF("portrait","mm","a4")
 
-const w = pdf.internal.pageSize.getWidth()
-const h = pdf.internal.pageSize.getHeight()
+const pageWidth = pdf.internal.pageSize.getWidth()
+const pageHeight = pdf.internal.pageSize.getHeight()
+
+const imgWidth = canvas.width
+const imgHeight = canvas.height
+
+const ratio = Math.min(pageWidth/imgWidth, pageHeight/imgHeight)
+
+const newWidth = imgWidth * ratio
+const newHeight = imgHeight * ratio
+
+const x = (pageWidth - newWidth)/2
+const y = (pageHeight - newHeight)/2
 
 pdf.addImage(data,"PNG",0,0,w,h)
 
@@ -327,4 +338,5 @@ load()
 </script>
 
 </body>
+
 </html>
