@@ -91,24 +91,23 @@ text-align: center; /* centra il numero */
 }
 
 .winner-box {
-  position: absolute;       /* per poterlo spostare */
-  left: 50%;                /* posizione iniziale orizzontale */
-  top: 85%;                 /* posizione iniziale verticale */
-  width: 40%;               /* larghezza iniziale */
-  height: 40px;             /* altezza iniziale */
-  background-color: #ffffffff;
-  border: 2px solid #000;   /* bordo visibile */
-  border-radius: 8px;       /* angoli arrotondati */
-  display: flex;             /* centra il testo */
+  position: absolute;       
+  left: 50%;                
+  top: 85%;                 
+  width: 40%;               
+  height: 40px;             
+  background-color: transparent;  /* completamente trasparente */
+  border: none;                    /* niente bordo */
+  display: flex;             
   align-items: center;
   justify-content: center;
   font-size: 18px;
   font-weight: bold;
   text-align: center;
   padding: 5px;
-  resize: both;             /* permette di ridimensionare */
-  overflow: auto;           /* scroll se testo lungo */
-  cursor: move;             /* indica che può essere trascinato */
+  resize: both;             
+  overflow: auto;           
+  cursor: move;             
 }
   
 .controls{
@@ -377,6 +376,7 @@ load()
 </body>
 
 </html>
+
 
 
 
