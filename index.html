@@ -300,7 +300,7 @@ let validPlayers = []
 
 for(let i=0;i<players;i++){
 
-let name = document.getElementById("p"+(i+1)).value
+let name = document.getElementById("p"+(i+1)).innerText.trim()
 
 if(name && t[i] > 0){
 validPlayers.push({index:i,total:t[i]})
@@ -316,7 +316,7 @@ return
 // trova il minimo
 let winner = validPlayers.reduce((a,b)=> a.total<b.total ? a : b)
 
-let name = document.getElementById("p"+(winner.index+1)).value
+let name = document.getElementById("p"+(winner.index+1)).innerText.trim()
 
 document.getElementById("winner-box").innerText = name + " con " + winner.total + " colpi"
 
@@ -381,6 +381,7 @@ load()
 </body>
 
 </html>
+
 
 
 
