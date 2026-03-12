@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Segnapunti Minigolf</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:#6fbf3a;
+display:flex;
+flex-direction:column;
+align-items:center;
+}
+
+.scheda{
+
+width:95%;
+max-width:900px;
+
+position:relative;
+
+}
+
+.scheda img{
+width:100%;
+display:block;
+}
+
+.overlay{
+
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+
+}
+
+.player{
+
+position:absolute;
+width:4%;
+height:4%;
+font-size:14px;
+text-align:center;
+
+}
+
+select{
+
+position:absolute;
+
+width:5%;
+height:3.2%;
+
+font-size:14px;
+
+}
+
+.controls{
+
+margin-top:20px;
+text-align:center;
+
+}
+
+button{
+
+padding:10px 16px;
+margin:5px;
+font-size:16px;
+
+}
+
+#winner{
+
+margin-top:10px;
+font-size:20px;
+font-weight:bold;
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="scheda" id="scheda">
+
+<img id="bg" src="scheda.png">
+
+<div class="overlay" id="overlay">
+
+<input class="player" id="p1" style="left:53%;top:7%" oninput="save()">
+<input class="player" id="p2" style="left:61%;top:7%" oninput="save()">
+<input class="player" id="p3" style="left:69%;top:7%" oninput="save()">
+<input class="player" id="p4" style="left:77%;top:7%" oninput="save()">
+<input class="player" id="p5" style="left:85%;top:7%" oninput="save()">
+<input class="player" id="p6" style="left:93%;top:7%" oninput="save()">
+<input class="player" id="t1" style="left:53%;top:92%" readonly>
+<input class="player" id="t2" style="left:61%;top:92%" readonly>
+<input class="player" id="t3" style="left:69%;top:92%" readonly>
+<input class="player" id="t4" style="left:77%;top:92%" readonly>
+<input class="player" id="t5" style="left:85%;top:92%" readonly>
+<input class="player" id="t6" style="left:93%;top:92%" readonly>
+
+</div>
+</div>
+
+<div class="controls">
+
+<button onclick="validate()">Convalida vincitore</button>
+<button onclick="downloadPDF()">Scarica PDF</button>
+
+<div id="winner"></div>
+
+</div>
+
+<script>
+
+const piste=18
+const players=6
+
+const startY=17.9
+const rowHeight=3.88
+
+const startX=55.2
+const colWidth=6.18
+
+function createCells(){
+
+const overlay=document.getElementById("overlay")
+
+for(let r=0;r<piste;r++){
+
+for(let p=0;p<players;p++){
+
+let s=document.createElement("select")
+
+s.innerHTML="<option></option>"
+
+for(let i=1;i<=7;i++)
+s.innerHTML+=`<option>${i}</option>`
+
+s.style.left=(startX+(p*colWidth))+"%"
+s.style.top=(startY+(r*rowHeight))+"%"
+
+s.dataset.row=r
+s.dataset.player=p
+
+s.onchange=save
+
+overlay.appendChild(s)
+
+}
+
+}
+
+}
+
+function save(){
+
+let data={}
+
+document.querySelectorAll("select").forEach(el=>{
+
+data["r"+el.dataset.row+"p"+el.dataset.player]=el.value
+
+})
+
+for(let i=1;i<=6;i++)
+data["p"+i]=document.getElementById("p"+i).value
+
+for(let i=1;i<=6;i++)
+data["t"+i]=document.getElementById("t"+i).value
+
+localStorage.setItem("minigolfScore",JSON.stringify(data))
+
+}
+
+function load(){
+
+let saved=localStorage.getItem("minigolfScore")
+
+if(!saved) return
+
+let data=JSON.parse(saved)
+
+document.querySelectorAll("select").forEach(el=>{
+
+let key="r"+el.dataset.row+"p"+el.dataset.player
+
+if(data[key])
+el.value=data[key]
+
+})
+
+for(let i=1;i<=6;i++){
+
+if(data["p"+i])
+document.getElementById("p"+i).value=data["p"+i]
+
+}
+for(let i=1;i<=6;i++){
+
+if(data["t"+i])
+document.getElementById("t"+i).value=data["t"+i]
+
+}
+}
+
+function totals(){
+
+let t=new Array(players).fill(0)
+
+document.querySelectorAll("select").forEach(el=>{
+
+if(el.value){
+
+let p=el.dataset.player
+t[p]+=parseInt(el.value)
+
+}
+
+})
+
+return t
+
+}
+
+function validate(){
+
+let t = totals()
+
+// aggiorna i totali
+for(let i=0;i<players;i++){
+document.getElementById("t"+(i+1)).value = t[i]
+}
+
+// considera solo i giocatori con nome e punteggio >0
+let validPlayers = []
+
+for(let i=0;i<players;i++){
+
+let name = document.getElementById("p"+(i+1)).value
+
+if(name && t[i] > 0){
+validPlayers.push({index:i,total:t[i]})
+}
+
+}
+
+if(validPlayers.length === 0){
+document.getElementById("winner").innerText="Inserire almeno un giocatore"
+return
+}
+
+// trova il minimo
+let winner = validPlayers.reduce((a,b)=> a.total<b.total ? a : b)
+
+let name = document.getElementById("p"+(winner.index+1)).value
+
+document.getElementById("winner").innerText="Vincitore: "+name+" con "+winner.total+" colpi"
+
+}
+
+async function downloadPDF(){
+
+try{
+
+const { jsPDF } = window.jspdf
+
+const img = document.getElementById("bg")
+
+// aspetta che l'immagine sia caricata
+if(!img.complete){
+await new Promise(resolve=>{
+img.onload = resolve
+})
+}
+
+const scheda = document.getElementById("scheda")
+
+const canvas = await html2canvas(scheda,{
+scale:2,
+backgroundColor:"#ffffff"
+})
+
+const data = canvas.toDataURL("image/png")
+
+const pdf = new jsPDF("landscape","mm","a4")
+
+const w = pdf.internal.pageSize.getWidth()
+const h = pdf.internal.pageSize.getHeight()
+
+pdf.addImage(data,"PNG",0,0,w,h)
+
+pdf.save("segnapunti-minigolf.pdf")
+
+setTimeout(()=>{
+
+localStorage.removeItem("minigolfScore")
+location.reload()
+
+},800)
+
+}catch(err){
+
+alert("Errore durante la creazione del PDF")
+console.error(err)
+
+}
+
+}
+
+createCells()
+load()
+
+</script>
+
+</body>
+</html>
