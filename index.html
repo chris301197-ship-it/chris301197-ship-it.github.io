@@ -27,6 +27,18 @@ white-space: nowrap;
 font-size: 12px;
 text-align: center;
 }
+
+.score-square {
+position: absolute;
+width: 4%;       /* larghezza del quadrato */
+aspect-ratio: 1; /* altezza uguale alla larghezza */
+font-size: 14px;
+text-align: center;
+line-height: 1;  /* per centrare verticalmente il numero */
+display: flex;
+justify-content: center;
+align-items: center;
+}
   
 .scheda{
 
@@ -118,12 +130,12 @@ font-weight:bold;
 <input class="player vertical-text" id="p4" style="left:73.77%;top:6.68%" oninput="save()">
 <input class="player vertical-text" id="p5" style="left:79.93%;top:6.68%" oninput="save()">
 <input class="player vertical-text" id="p6" style="left:86.07%;top:6.68%" oninput="save()">
-<input class="player" id="t1" style="left:53%;top:92%" readonly>
-<input class="player" id="t2" style="left:61%;top:92%" readonly>
-<input class="player" id="t3" style="left:69%;top:92%" readonly>
-<input class="player" id="t4" style="left:77%;top:92%" readonly>
-<input class="player" id="t5" style="left:85%;top:92%" readonly>
-<input class="player" id="t6" style="left:93%;top:92%" readonly>
+<input class="score-square" id="t1" style="left:53%;top:92%" readonly>
+<input class="score-square" id="t2" style="left:61%;top:92%" readonly>
+<input class="score-square" id="t3" style="left:69%;top:92%" readonly>
+<input class="score-square" id="t4" style="left:77%;top:92%" readonly>
+<input class="score-square" id="t5" style="left:85%;top:92%" readonly>
+<input class="score-square" id="t6" style="left:93%;top:92%" readonly>
 
 </div>
 </div>
@@ -344,6 +356,7 @@ load()
 </body>
 
 </html>
+
 
 
 
