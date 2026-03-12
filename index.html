@@ -90,6 +90,27 @@ text-align: center; /* centra il numero */
 
 }
 
+.winner-box {
+  position: absolute;       /* per poterlo spostare */
+  left: 50%;                /* posizione iniziale orizzontale */
+  top: 85%;                 /* posizione iniziale verticale */
+  width: 40%;               /* larghezza iniziale */
+  height: 40px;             /* altezza iniziale */
+  background-color: #ffffffcc; /* sfondo semitrasparente */
+  border: 2px solid #000;   /* bordo visibile */
+  border-radius: 8px;       /* angoli arrotondati */
+  display: flex;             /* centra il testo */
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  padding: 5px;
+  resize: both;             /* permette di ridimensionare */
+  overflow: auto;           /* scroll se testo lungo */
+  cursor: move;             /* indica che può essere trascinato */
+}
+  
 .controls{
 
 margin-top:20px;
@@ -145,7 +166,7 @@ font-weight:bold;
 <button onclick="validate()">Convalida vincitore</button>
 <button onclick="downloadPDF()">Scarica PDF</button>
 
-<div id="winner"></div>
+<div id="winner-box" class="winner-box">Vincitore: </div>
 
 </div>
 
@@ -293,7 +314,7 @@ let winner = validPlayers.reduce((a,b)=> a.total<b.total ? a : b)
 
 let name = document.getElementById("p"+(winner.index+1)).value
 
-document.getElementById("winner").innerText="Vincitore: "+name+" con "+winner.total+" colpi"
+document.getElementById("winner-box").innerText = "Vincitore: " + name + " con " + winner.total + " colpi"
 
 }
 
@@ -356,6 +377,7 @@ load()
 </body>
 
 </html>
+
 
 
 
