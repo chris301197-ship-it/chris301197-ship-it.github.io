@@ -277,42 +277,33 @@ async function downloadPDF(){
 try{
 
 const { jsPDF } = window.jspdf
-
-const img = document.getElementById("bg")
-
-// aspetta che l'immagine sia caricata
-if(!img.complete){
-await new Promise(resolve=>{
-img.onload = resolve
-})
-}
-
 const scheda = document.getElementById("scheda")
 
 const canvas = await html2canvas(scheda,{
-scale:2,
+scale:3,
 backgroundColor:"#ffffff"
 })
 
-const data = canvas.toDataURL("image/png")
+const imgData = canvas.toDataURL("image/png")
 
-const pdf = new jsPDF("portrait","mm","a4")
-
-const pageWidth = pdf.internal.pageSize.getWidth()
-const pageHeight = pdf.internal.pageSize.getHeight()
-
+// dimensioni canvas reali
 const imgWidth = canvas.width
 const imgHeight = canvas.height
 
-const ratio = Math.min(pageWidth/imgWidth, pageHeight/imgHeight)
+// conversione pixel → mm
+const pxToMm = 0.264583
 
-const newWidth = imgWidth * ratio
-const newHeight = imgHeight * ratio
+const pdfWidth = imgWidth * pxToMm
+const pdfHeight = imgHeight * pxToMm
 
-const x = (pageWidth - newWidth)/2
-const y = (pageHeight - newHeight)/2
+// PDF con dimensione IDENTICA alla scheda
+const pdf = new jsPDF({
+orientation: pdfHeight > pdfWidth ? "portrait" : "landscape",
+unit: "mm",
+format: [pdfWidth, pdfHeight]
+})
 
-pdf.addImage(data,"PNG",0,0,w,h)
+pdf.addImage(imgData,"PNG",0,0,pdfWidth,pdfHeight)
 
 pdf.save("segnapunti-minigolf.pdf")
 
@@ -340,3 +331,4 @@ load()
 </body>
 
 </html>
+
