@@ -96,7 +96,7 @@ text-align: center; /* centra il numero */
   top: 85%;                 /* posizione iniziale verticale */
   width: 40%;               /* larghezza iniziale */
   height: 40px;             /* altezza iniziale */
-  background-color: #ffffffcc; /* sfondo semitrasparente */
+  background-color: #ffffffff;
   border: 2px solid #000;   /* bordo visibile */
   border-radius: 8px;       /* angoli arrotondati */
   display: flex;             /* centra il testo */
@@ -314,7 +314,7 @@ let winner = validPlayers.reduce((a,b)=> a.total<b.total ? a : b)
 
 let name = document.getElementById("p"+(winner.index+1)).value
 
-document.getElementById("winner-box").innerText = "Vincitore: " + name + " con " + winner.total + " colpi"
+document.getElementById("winner-box").innerText = name + " con " + winner.total + " colpi"
 
 }
 
@@ -377,6 +377,7 @@ load()
 </body>
 
 </html>
+
 
 
 
