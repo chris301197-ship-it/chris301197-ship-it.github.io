@@ -254,7 +254,6 @@ if(data[key])
 el.value=data[key]
 
 })
-}
 
 for(let i=1;i<=6;i++){
 
@@ -268,24 +267,6 @@ if(data["t"+i])
 document.getElementById("t"+i).value=data["t"+i]
 
 }
-  
-function totals(){
-
-let t=new Array(players).fill(0)
-
-document.querySelectorAll("select").forEach(el=>{
-
-if(el.value){
-
-let p=el.dataset.player
-t[p]+=parseInt(el.value)
-
-}
-
-})
-
-return t
-
 }
 
 function limitText(e,el,max){
@@ -311,6 +292,23 @@ e.preventDefault()
 
 }
   
+function totals(){
+
+let t=new Array(players).fill(0)
+
+document.querySelectorAll("select").forEach(el=>{
+
+if(el.value){
+
+let p=el.dataset.player
+t[p]+=parseInt(el.value)
+
+}
+
+})
+
+return t
+
 }
   
 function validate(){
