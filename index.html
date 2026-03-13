@@ -227,11 +227,10 @@ for(let i=1;i<=6;i++){
 
 let el = document.getElementById("p"+i)
 
-let name = el.innerText.replace(/\s+/g,"").substring(0,5)
+// limita a 5 caratteri
+el.innerText = el.innerText.substring(0,5)
 
-el.innerText = name
-
-data["p"+i] = name
+data["p"+i] = el.innerText
 
 }
 
@@ -387,6 +386,7 @@ load()
 </body>
 
 </html>
+
 
 
 
