@@ -223,16 +223,8 @@ data["r"+el.dataset.row+"p"+el.dataset.player]=el.value
 
 })
 
-for(let i=1;i<=6;i++){
-
-let el = document.getElementById("p"+i)
-
-// limita a 5 caratteri
-el.innerText = el.innerText.substring(0,5)
-
-data["p"+i] = el.innerText
-
-}
+for(let i=1;i<=6;i++)
+data["p"+i]=document.getElementById("p"+i).innerText
 
 for(let i=1;i<=6;i++)
 data["t"+i]=document.getElementById("t"+i).value
