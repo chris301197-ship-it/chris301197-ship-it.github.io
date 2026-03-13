@@ -151,12 +151,12 @@ font-weight:bold;
 
 <div class="overlay" id="overlay">
 
-<div class="player vertical-text" id="p1" contenteditable="true" onkeydown="limitText(event,this,5)" oninput="save()" style="left:55.7%;top:8.5%" width:4%; height:6.9%; position:absolute;"></div>
-<div class="player vertical-text" id="p2" contenteditable="true" onkeydown="limitText(event,this,5)" oninput="save()" style="left:61.6%;top:8.5%" width:4%; height:6.9%; position:absolute;"></div>
-<div class="player vertical-text" id="p3" contenteditable="true" onkeydown="limitText(event,this,5)" oninput="save()" style="left:67.7%;top:8.5%" width:4%; height:6.9%; position:absolute;"></div>
-<div class="player vertical-text" id="p4" contenteditable="true" onkeydown="limitText(event,this,5)" oninput="save()" style="left:74%;top:8.5%" width:4%; height:6.9%; position:absolute;"></div>
-<div class="player vertical-text" id="p5" contenteditable="true" onkeydown="limitText(event,this,5)" oninput="save()" style="left:80.2%;top:8.5%" width:4%; height:6.9%; position:absolute;"></div>
-<div class="player vertical-text" id="p6" contenteditable="true" onkeydown="limitText(event,this,5)" oninput="save()" style="left:86.4%;top:8.5%" width:4%; height:6.9%; position:absolute;"></div>
+<div class="player vertical-text" id="p1" contenteditable="true" oninput="save(); limitText(event,this,5)" style="left:55.7%;top:8.5%" width:4%; height:6.9%; position:absolute;"></div>
+<div class="player vertical-text" id="p2" contenteditable="true" oninput="save(); limitText(event,this,5)" style="left:61.6%;top:8.5%" width:4%; height:6.9%; position:absolute;"></div>
+<div class="player vertical-text" id="p3" contenteditable="true" oninput="save(); limitText(event,this,5)" style="left:67.7%;top:8.5%" width:4%; height:6.9%; position:absolute;"></div>
+<div class="player vertical-text" id="p4" contenteditable="true" oninput="save(); limitText(event,this,5)" style="left:74%;top:8.5%" width:4%; height:6.9%; position:absolute;"></div>
+<div class="player vertical-text" id="p5" contenteditable="true" oninput="save(); limitText(event,this,5)" style="left:80.2%;top:8.5%" width:4%; height:6.9%; position:absolute;"></div>
+<div class="player vertical-text" id="p6" contenteditable="true" oninput="save(); limitText(event,this,5)" style="left:86.4%;top:8.5%" width:4%; height:6.9%; position:absolute;"></div>
 <input class="score-square" id="t1" style="left:54.70%;top:91.45%" readonly>
 <input class="score-square" id="t2" style="left:60.90%;top:91.45%" readonly>
 <input class="score-square" id="t3" style="left:67.10%;top:91.45%" readonly>
@@ -269,27 +269,27 @@ document.getElementById("t"+i).value=data["t"+i]
 }
 }
 
-function limitText(e,el,max){
-
-let text = el.innerText
-
-// tasti sempre consentiti
-if(
-e.key === "Backspace" ||
-e.key === "Delete" ||
-e.key === "Tab" ||
-e.key === "Enter" ||
-e.key.startsWith("Arrow") ||
-e.ctrlKey || e.metaKey
-){
-return
+function limitText(e, el, max) {
+    setTimeout(() => {
+        if (el.innerText.length > max) {
+            el.innerText = el.innerText.substring(0, max);
+            placeCaretAtEnd(el);
+        }
+    }, 0);
 }
 
-// blocca inserimento se raggiunto limite
-if(el.innerText.length >= max && e.key.length === 1){
-e.preventDefault()
-}
-
+// funzione per mettere il cursore alla fine
+function placeCaretAtEnd(el) {
+    el.focus();
+    if (typeof window.getSelection != "undefined"
+        && typeof document.createRange != "undefined") {
+        let range = document.createRange();
+        range.selectNodeContents(el);
+        range.collapse(false);
+        let sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+    }
 }
   
 function totals(){
