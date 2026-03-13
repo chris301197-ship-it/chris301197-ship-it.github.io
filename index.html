@@ -21,13 +21,13 @@ align-items:center;
 }
 
 .vertical-text {
-  writing-mode: vertical-rl;
+  transform: rotate(-90deg);
+  transform-origin: center;
   white-space: nowrap;
   font-size: 12px;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
 .score-square {
@@ -67,14 +67,11 @@ height:100%;
 }
 
 .player{
-
 position:absolute;
 width:4%;
 height:6.90%;
-transform: rotate(180deg);
 font-size:14px;
 text-align:center;
-
 }
 
 select{
@@ -381,6 +378,7 @@ load()
 </body>
 
 </html>
+
 
 
 
