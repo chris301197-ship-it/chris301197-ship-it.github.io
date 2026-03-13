@@ -314,7 +314,7 @@ return
 }
 
 // trova il minimo
-let winner = validPlayers.reduce((a,b)=> a.total<b.total ? a : b)
+let winner = validPlayers.reduce((a,b)=> a.total>b.total ? a : b)
 
 let name = document.getElementById("p"+(winner.index+1)).innerText.trim()
 
@@ -381,6 +381,7 @@ load()
 </body>
 
 </html>
+
 
 
 
