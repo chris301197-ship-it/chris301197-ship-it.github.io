@@ -441,6 +441,27 @@ fakeTotals.push(num)
 
 })
 
+// crea anche un "fake winner" sopra winner-box
+let winnerBox = document.getElementById("winner-box");
+let fakeWinner = null;
+if(winnerBox.innerText.trim() !== ""){
+    fakeWinner = document.createElement("div");
+    fakeWinner.innerText = winnerBox.innerText;
+    fakeWinner.style.position = "absolute";
+    fakeWinner.style.left = winnerBox.offsetLeft + "px";
+    fakeWinner.style.top = winnerBox.offsetTop + "px";
+    fakeWinner.style.width = winnerBox.offsetWidth + "px";
+    fakeWinner.style.height = winnerBox.offsetHeight + "px";
+    fakeWinner.style.display = "flex";
+    fakeWinner.style.alignItems = "center";
+    fakeWinner.style.justifyContent = "flex-start";
+    fakeWinner.style.fontSize = "15px";
+    fakeWinner.style.fontWeight = "bold";
+    fakeWinner.style.pointerEvents = "none";
+
+    overlay.appendChild(fakeWinner);
+}
+
 //---------------------------
   
 const canvas = await html2canvas(scheda,{
@@ -458,6 +479,7 @@ fakeTotals.forEach(el=>el.remove())
 document.querySelectorAll(".score-square").forEach(el=>{
 el.style.color=""
 })
+if(fakeWinner) fakeWinner.remove();
 
 // dimensioni canvas reali
 const imgWidth = canvas.width
