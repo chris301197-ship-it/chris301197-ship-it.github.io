@@ -350,12 +350,17 @@ document.getElementById("winner").innerText="Inserire almeno un giocatore"
 return
 }
 
-// trova il minimo
-let winner = validPlayers.reduce((a,b)=> a.total>b.total ? b : a)
+// trova il punteggio minimo
+let minTotal = Math.min(...validPlayers.map(p => p.total));
 
-let name = document.getElementById("p"+(winner.index+1)).innerText.trim()
+// seleziona tutti i giocatori con il punteggio minimo
+let winners = validPlayers.filter(p => p.total === minTotal);
 
-document.getElementById("winner-box").innerText = name + " con " + winner.total + " colpi"
+// crea una stringa con tutti i nomi separati da virgola
+let winnerNames = winners.map(w => document.getElementById("p" + (w.index + 1)).innerText.trim()).join(", ");
+
+// mostra il risultato
+document.getElementById("winner-box").innerText = winnerNames + " con " + minTotal + " colpi";
 winnerValidated = true;
 
 }
