@@ -188,6 +188,8 @@ Vai al regolamento ▶️
 
 <script>
 
+let winnerValidated = false;
+  
 const piste=18
 const players=6
 
@@ -354,10 +356,16 @@ let winner = validPlayers.reduce((a,b)=> a.total>b.total ? b : a)
 let name = document.getElementById("p"+(winner.index+1)).innerText.trim()
 
 document.getElementById("winner-box").innerText = name + " con " + winner.total + " colpi"
+winnerValidated = true;
 
 }
 
 async function downloadPDF(){
+
+if(!winnerValidated){
+alert("Devi prima convalidare il vincitore!");
+return;
+    }  
 
 try{
 
