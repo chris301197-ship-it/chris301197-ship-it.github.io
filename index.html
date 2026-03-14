@@ -241,7 +241,7 @@ data["r"+el.dataset.row+"p"+el.dataset.player]=el.value
 })
   
 for(let i=1;i<=6;i++)
-data["p"+i]=document.getElementById("p"+i).innerText
+data["p"+i]=document.getElementById("p"+i).textContent
 
 for(let i=1;i<=6;i++)
 data["t"+i]=document.getElementById("t"+i).value
@@ -270,7 +270,7 @@ el.value=data[key]
 for(let i=1;i<=6;i++){
 
 if(data["p"+i])
-document.getElementById("p"+i).innerText=data["p"+i]
+document.getElementById("p"+i).textContent=data["p"+i]
 
 }
 for(let i=1;i<=6;i++){
@@ -325,6 +325,8 @@ return t
   
 function validate(){
 
+save();
+  
 let t = totals()
 
 // aggiorna i totali
@@ -337,7 +339,7 @@ let validPlayers = []
 
 for(let i=0;i<players;i++){
 
-let name = document.getElementById("p"+(i+1)).innerText.trim()
+let name = document.getElementById("p"+(i+1)).textContent.trim()
 
 if(name && t[i] > 0){
 validPlayers.push({index:i,total:t[i]})
@@ -358,7 +360,7 @@ let minTotal = Math.min(...validPlayers.map(p => p.total));
 let winners = validPlayers.filter(p => p.total === minTotal);
 
 // crea una stringa con tutti i nomi separati da virgola
-let winnerNames = winners.map(w => document.getElementById("p" + (w.index + 1)).innerText.trim()).join(", ");
+let winnerNames = winners.map(w => document.getElementById("p" + (w.index + 1)).textContent.trim()).join(", ");
 
 // mostra il risultato
 document.getElementById("winner-box").innerText = winnerNames + " con " + minTotal + " colpi";
