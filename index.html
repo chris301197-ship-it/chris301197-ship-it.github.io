@@ -364,17 +364,48 @@ try{
 const { jsPDF } = window.jspdf
 const scheda = document.getElementById("scheda")
 
-// alza leggermente i numeri nei select per html2canvas
+//----------------------
+
+// crea numeri centrati sopra i select per il PDF
+let fakeNumbers=[]
+
 document.querySelectorAll("select").forEach(el=>{
-el.style.transform = "translateY(-2px)"
+
+if(el.value){
+
+let rect=el.getBoundingClientRect()
+let schedaRect=scheda.getBoundingClientRect()
+
+let num=document.createElement("div")
+num.innerText=el.value
+
+num.style.position="absolute"
+num.style.left=(el.offsetLeft)+"px"
+num.style.top=(el.offsetTop-2)+"px"
+num.style.width=el.offsetWidth+"px"
+num.style.height=el.offsetHeight+"px"
+num.style.display="flex"
+num.style.alignItems="center"
+num.style.justifyContent="center"
+num.style.fontSize="12px"
+num.style.pointerEvents="none"
+
+overlay.appendChild(num)
+fakeNumbers.push(num)
+
+}
 })
 
+//---------------------------
+  
 const canvas = await html2canvas(scheda,{
 scale:3,
 backgroundColor:"#ffffff"
 })
 
 const imgData = canvas.toDataURL("image/png")
+// rimuove i numeri finti
+fakeNumbers.forEach(el=>el.remove())
 
 // dimensioni canvas reali
 const imgWidth = canvas.width
