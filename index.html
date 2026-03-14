@@ -371,6 +371,8 @@ let fakeNumbers=[]
 
 document.querySelectorAll("select").forEach(el=>{
 
+el.style.color="transparent"
+
 if(el.value){
 
 let rect=el.getBoundingClientRect()
@@ -406,6 +408,9 @@ backgroundColor:"#ffffff"
 const imgData = canvas.toDataURL("image/png")
 // rimuove i numeri finti
 fakeNumbers.forEach(el=>el.remove())
+document.querySelectorAll("select").forEach(el=>{
+el.style.color=""
+})
 
 // dimensioni canvas reali
 const imgWidth = canvas.width
