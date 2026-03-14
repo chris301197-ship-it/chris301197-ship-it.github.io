@@ -368,6 +368,7 @@ const scheda = document.getElementById("scheda")
 
 // crea numeri centrati sopra i select per il PDF
 let fakeNumbers=[]
+let fakeTotals=[]
 
 document.querySelectorAll("select").forEach(el=>{
 
@@ -398,6 +399,34 @@ fakeNumbers.push(num)
 }
 })
 
+// corregge anche i totali (score-square)
+document.querySelectorAll(".score-square").forEach(el=>{
+
+if(el.value){
+
+el.style.color="transparent"
+
+let num=document.createElement("div")
+num.innerText=el.value
+
+num.style.position="absolute"
+num.style.left=(el.offsetLeft)+"px"
+num.style.top=(el.offsetTop-1)+"px"
+num.style.width=el.offsetWidth+"px"
+num.style.height=el.offsetHeight+"px"
+num.style.display="flex"
+num.style.alignItems="center"
+num.style.justifyContent="center"
+num.style.fontSize="14px"
+num.style.pointerEvents="none"
+
+overlay.appendChild(num)
+fakeTotals.push(num)
+
+}
+
+})
+
 //---------------------------
   
 const canvas = await html2canvas(scheda,{
@@ -409,6 +438,10 @@ const imgData = canvas.toDataURL("image/png")
 // rimuove i numeri finti
 fakeNumbers.forEach(el=>el.remove())
 document.querySelectorAll("select").forEach(el=>{
+el.style.color=""
+})
+fakeTotals.forEach(el=>el.remove())
+document.querySelectorAll(".score-square").forEach(el=>{
 el.style.color=""
 })
 
