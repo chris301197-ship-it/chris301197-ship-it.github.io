@@ -31,6 +31,32 @@ width:100%;
 display:block;
 }
 
+.link-box{
+
+position:absolute;
+
+left:10%;      /* posizione orizzontale */
+top:20%;       /* posizione verticale */
+
+width:120px;
+height:120px;
+
+background:#000;   /* completamente opaco */
+color:white;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+text-align:center;
+font-size:16px;
+font-weight:bold;
+
+cursor:pointer;
+border-radius:8px;
+
+}
+  
 .controls{
 
 margin-top:20px;
@@ -57,6 +83,16 @@ cursor:pointer;
 
 </div>
 
+<div class="container">
+
+<img src="regolamento.png">
+
+<div class="link-box" onclick="window.location.href='https://tuolink.com'">
+Vai al sito
+</div>
+
+</div>
+  
 <div class="controls">
 
 <button onclick="window.location.href='index.html'">
