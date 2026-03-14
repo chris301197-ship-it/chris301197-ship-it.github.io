@@ -364,6 +364,11 @@ try{
 const { jsPDF } = window.jspdf
 const scheda = document.getElementById("scheda")
 
+// alza leggermente i numeri nei select per html2canvas
+document.querySelectorAll("select").forEach(el=>{
+el.style.transform = "translateY(-1px)"
+})
+
 const canvas = await html2canvas(scheda,{
 scale:3,
 backgroundColor:"#ffffff"
@@ -391,6 +396,11 @@ format: [pdfWidth, pdfHeight]
 pdf.addImage(imgData,"PNG",0,0,pdfWidth,pdfHeight)
 
 pdf.save("segnapunti-minigolf.pdf")
+
+// ripristina posizione normale
+document.querySelectorAll("select").forEach(el=>{
+el.style.transform = ""
+})
 
 setTimeout(()=>{
 
